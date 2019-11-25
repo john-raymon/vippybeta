@@ -1,5 +1,8 @@
 @import "settings/sizing";
 
+p {
+  @extend .tw-font-mich;
+}
 .mainContainer {
   min-height: calc(100vh - #{$footerHeight});
 }
@@ -62,5 +65,5 @@
 }
 
 .button {
-  
+  @extend .dim, .tw-p-2, .tw-font-mich, .tw-leading-loose, .tw-text-white, .tw-text-xs, .tw-tracking-widest, .tw-uppercase, .tw-rounded;
 }

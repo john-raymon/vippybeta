@@ -3,7 +3,7 @@ module.exports = {
   prefix: "tw-",
   theme: {
     fontFamily: {
-      mich: ["michromaregular"]
+      mich: ["Michroma", "sans-serif"]
     },
     extend: {
       spacing: {

@@ -101,7 +101,7 @@ export default class Checkout extends Component {
                 )}
               </div>
               <div className="flex flex-column w-100 w-50-l">
-                <div className="ReservationForm__container flex flex-column justify-center flex-grow-1 bg-vippy-1 w-100 mv2 mh2-l mv0-l br2 bg-black">
+                <div className="ReservationForm__container flex flex-column justify-center flex-grow-1 w-100 mv2 mh2-l mv0-l br2 bg-black">
                   <Elements>
                     <ReservationForm
                       formError={formError}

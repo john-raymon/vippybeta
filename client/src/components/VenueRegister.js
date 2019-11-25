@@ -14,6 +14,9 @@ import { register as registerDispatch } from "./../state/actions/authActions";
 import RegisterFormTextField from "./FormField";
 import ListingLineItem from "./ListingLineItem";
 
+// svgs
+import GlobeIcon from "../svgs/globe-icon-svg";
+
 /**
    * 1. on first submit, save all form date, init request to twilio withonly phone number
    * 2. if first step successful, set state hasInitVerif to true, display neccessary UI such different submit button,
@@ -24,7 +27,7 @@ import ListingLineItem from "./ListingLineItem";
         the ui change accordingly to init proper request on future submit
    * 4. if second submit successful, then user will be registered and proper state will be updated
    */
-class UserRegister extends Component {
+class VenueRegister extends Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -45,6 +48,7 @@ class UserRegister extends Component {
       error: ""
     };
   }
+
   componentDidMount() {
     const { isAuth, location, history } = this.props;
     const { state: locationState } = location;
@@ -56,6 +60,7 @@ class UserRegister extends Component {
       }
     }
   }
+
   componentDidUpdate() {
     const { isAuth, location, history } = this.props;
     const { state: locationState } = location;
@@ -67,6 +72,7 @@ class UserRegister extends Component {
       }
     }
   }
+
   resetErrorsState() {
     const allErrors = Object.keys(this.state).reduce((allErrors, key) => {
       const allKeyChars = key.toLowerCase();
@@ -80,6 +86,7 @@ class UserRegister extends Component {
       ...allErrors
     });
   }
+
   verifyAndCreateUser(user) {
     return this.props.userAgent.create({
       ...user,
@@ -88,9 +95,11 @@ class UserRegister extends Component {
       phonenumber: user.phoneNumber
     });
   }
+
   sendOnBoardCode(phoneNumber, email) {
     return this.props.userAgent.sendOnBoardCode(phoneNumber, email);
   }
+
   validate(user, continueRegistration) {
     const userSchema = yup.object().shape({
       email: yup
@@ -134,17 +143,20 @@ class UserRegister extends Component {
       context: { continueRegistration }
     });
   }
+
   handleFormChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+
   revertInitOfVerif() {
     this.setState({
       ...this.state,
       hasInitVerif: false
     });
   }
+
   onFormSubmit(e, continueRegistration = false) {
     e.preventDefault();
     this.resetErrorsState();
@@ -231,222 +243,157 @@ class UserRegister extends Component {
     } = this.state;
     return (
       <div className="flex flex-column flex-row-l mw8 center pv4 ph1">
-        <div className="w-100 w-50-l ph3-l mb4 mb0-l">
-          {this.props.location.state &&
-          this.props.location.state.from &&
-          this.props.location.state.from.state.continueCheckout ? (
-            <ListingLineItem
-              boxTitle="Almost done! Create an account before checking out and reserving"
-              listingId={this.props.location.state.from.state.listingId}
-              userAgent={this.props.userAgent}
-            />
-          ) : (
-            <div className="sticky top-from-nav mt4 mt0-l w-100 flex flex-column flex-row-m">
-              <p className="michroma f4 tracked b lh-copy white-90 pa3 w-70 z-2">
-                Know What To Expect Before Going Out by Reserving on Vippy.
-                <span className="db lh-copy white f8 pt3">
-                  We exclusively partner with venues to bring forth underrated,
-                  and reliable experiences.
-                  <span className="db f7 white pt1 underline">
-                    Learn how it works here.
-                  </span>
-                </span>
-              </p>
-              <div className="marketingBox absolute absolute--fill w-100 h-100 z-0">
-                <div className="bg-black-70 w-100 h-100" />
-                {
-                  // <p className="michroma tracked white-30 f9 absolute bottom-0 right-0 pa2">
-                  //   Photo by Benjamin Hung on Unsplash
-                  // </p>
-                }
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="registerComponent flex flex-column w-100 w-50-l">
-          {hasInitVerif ? (
-            <h1 className="michroma tracked lh-title white ttc f3 f2-ns pr4 mb2 mw6 mt0">
-              {`Almost done ${
-                prevValidatedUser.fullName.split(" ")[0]
-              }, thank you for trying Vippy!`}
-            </h1>
-          ) : (
-            <h1 className="michroma tracked lh-title white ttc f3 f2-ns pr4 mb2 mt0">
-              easily register <br /> below
-            </h1>
-          )}
+        <div className="registerComponent flex flex-column w-100">
+          <h1 className="michroma tracked lh-title white tw-text-2xl lg:tw-text-4xl f2-ns tw-text-center mb2 mt0">
+            Optimize the reservation experience for your events. Register your
+            venue.
+          </h1>
+
           {error && (
             <p className="michroma f6 tracked ttc yellow lh-copy o-70 pt3 pb3">
               {error}
             </p>
           )}
-          {hasInitVerif && !error && (
-            <p className="michroma f6 tracked ttc yellow o-70 pt3 pb2 lh-copy">
-              We sent you a verification code, please enter it below.
-            </p>
-          )}
-          <form
-            className="registerComponent__form flex flex-column w-100 mt2"
-            onChange={this.handleFormChange}
-          >
-            {hasInitVerif && (
-              <Fragment>
-                <div className="mb2 w-100">
-                  <RegisterFormTextField
-                    placeholder="Enter your verfication code"
-                    type="text"
-                    label="Code"
-                    name="verificationCode"
-                    value={this.state.verifcationCode}
-                  />
-                  <div className="flex flex-row items-center pt1">
+
+          <div className="tw-flex tw-flex-col md:tw-flex-row tw-py-6">
+            <form
+              className="registerComponent__form flex flex-column tw-w-full md:tw-w-6/12 mt2"
+              onChange={this.handleFormChange}
+            >
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="What's your email address?"
+                  type="email"
+                  label="Email"
+                  name="email"
+                  value={this.state.email}
+                />
+
+                {this.state.emailError && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {this.state.emailError}
+                  </p>
+                )}
+              </div>
+
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Enter your Phone Number"
+                  type="text"
+                  label="Phone Number"
+                  name="phoneNumber"
+                  className={`${hasInitVerif ? "o-30" : ""}`}
+                  value={this.state.phoneNumber}
+                  disabled={hasInitVerif}
+                />
+
+                {hasInitVerif && (
+                  <div className="flex flex-row items-center pt2">
                     <button
                       className="michroma outline-0 bn bg-transparent f8 white-90 o-60 pa0 tracked lh-title pointer"
                       onClick={this.revertInitOfVerif}
                     >
                       verify a different number
                     </button>
-                    <p className="flex white-50 mh1 self-center pt1">|</p>
-                    <button
-                      className="michroma outline-0 bn bg-transparent f8 white-90 o-60 pa0 tracked lh-title pointer"
-                      onClick={this.onFormSubmit}
-                    >
-                      resend code
-                    </button>
                   </div>
-                  {this.state.verificationCodeError && (
-                    <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                      {this.state.verificationCodeError}
-                    </p>
-                  )}
-                </div>
+                )}
+
+                {this.state.phoneNumberError && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {this.state.phoneNumberError}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Enter Your Zip Code"
+                  type="text"
+                  label="Zip Code"
+                  name="zipCode"
+                  value={this.state.zipCode}
+                />
+                {this.state.zipCodeError && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {this.state.zipCodeError}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Create a password"
+                  type="password"
+                  label="Password"
+                  name="password"
+                  value={this.state.password}
+                />
+                {this.state.passwordError && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {this.state.passwordError}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Confirm your password"
+                  type="password"
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  value={this.state.confirmPassword}
+                />
+                {this.state.confirmPasswordError && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {this.state.confirmPasswordError}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Ex. Nova Rae"
+                  type="text"
+                  label="Full Name"
+                  name="fullName"
+                  value={this.state.fullName}
+                />
+                {this.state.fullNameError && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {this.state.fullNameError}
+                  </p>
+                )}
+              </div>
+              {!hasInitVerif && (
                 <button
-                  className="vippyButton mt3 mb4 mw1 self-end dim"
-                  onClick={e => this.onFormSubmit(e, true)}
+                  className="vippyButton mt4 mw1 self-end dim"
+                  onClick={this.onFormSubmit}
                   type="submit"
                 >
                   <div className="vippyButton__innerColorBlock">
                     <div className="w-100 h-100 flex flex-column justify-center">
                       <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1">
-                        verify
+                        sign up
                       </p>
                     </div>
                   </div>
                 </button>
-              </Fragment>
-            )}
-            <div className="mb3 w-100">
-              <RegisterFormTextField
-                placeholder="What's your email address?"
-                type="email"
-                label="Email"
-                name="email"
-                value={this.state.email}
-              />
-              {this.state.emailError && (
-                <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                  {this.state.emailError}
-                </p>
               )}
-            </div>
-            <div className="mb3 w-100">
-              <RegisterFormTextField
-                placeholder="Enter your Phone Number"
-                type="text"
-                label="Phone Number"
-                name="phoneNumber"
-                className={`${hasInitVerif ? "o-30" : ""}`}
-                value={this.state.phoneNumber}
-                disabled={hasInitVerif}
-              />
-              {hasInitVerif && (
-                <div className="flex flex-row items-center pt2">
-                  <button
-                    className="michroma outline-0 bn bg-transparent f8 white-90 o-60 pa0 tracked lh-title pointer"
-                    onClick={this.revertInitOfVerif}
-                  >
-                    verify a different number
-                  </button>
-                </div>
-              )}
-              {this.state.phoneNumberError && (
-                <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                  {this.state.phoneNumberError}
-                </p>
-              )}
-            </div>
-            <div className="mb3 w-100">
-              <RegisterFormTextField
-                placeholder="Enter Your Zip Code"
-                type="text"
-                label="Zip Code"
-                name="zipCode"
-                value={this.state.zipCode}
-              />
-              {this.state.zipCodeError && (
-                <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                  {this.state.zipCodeError}
-                </p>
-              )}
-            </div>
-            <div className="mb3 w-100">
-              <RegisterFormTextField
-                placeholder="Create a password"
-                type="password"
-                label="Password"
-                name="password"
-                value={this.state.password}
-              />
-              {this.state.passwordError && (
-                <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                  {this.state.passwordError}
-                </p>
-              )}
-            </div>
-            <div className="mb3 w-100">
-              <RegisterFormTextField
-                placeholder="Confirm your password"
-                type="password"
-                label="Confirm Password"
-                name="confirmPassword"
-                value={this.state.confirmPassword}
-              />
-              {this.state.confirmPasswordError && (
-                <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                  {this.state.confirmPasswordError}
-                </p>
-              )}
-            </div>
-            <div className="mb3 w-100">
-              <RegisterFormTextField
-                placeholder="Ex. Nova Rae"
-                type="text"
-                label="Full Name"
-                name="fullName"
-                value={this.state.fullName}
-              />
-              {this.state.fullNameError && (
-                <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                  {this.state.fullNameError}
-                </p>
-              )}
-            </div>
-            {!hasInitVerif && ( // when this hasInitVerif is truthy we will then render the verify button above ^
-              <button
-                className="vippyButton mt4 mw1 self-end dim"
-                onClick={this.onFormSubmit}
-                type="submit"
-              >
-                <div className="vippyButton__innerColorBlock">
-                  <div className="w-100 h-100 flex flex-column justify-center">
-                    <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1">
-                      sign up
-                    </p>
+            </form>
+            <div className="tw-flex tw-justify-end tw-items-center tw-flex-grow tw-px-6 tw-order-first md:tw-order-none">
+              <div className="tw-flex tw-flex-col tw-w-full tw-items-end">
+                <div className="tw-flex tw-justify-between tw-items-center tw-max-w-sm">
+                  <div class="tw-w-10 tw-max-w-xs">
+                    <GlobeIcon />
                   </div>
+                  <p className="tw-w-48 tw-text-sm tw-text-right tw-text-white tw-leading-relaxed tw-tracking-wider">
+                    We don’t charge anything up-front
+                  </p>
                 </div>
-              </button>
-            )}
-          </form>
+                <p className="tw-w-full tw-text-xs tw-text-gray-600 tw-mt-2 tw-text-right tw-leading-relaxed md:tw-max-w-sm lg:tw-max-md">
+                  We only charge a 15 percent fee when a reservation is made at
+                  your venue. Allowing you to get up and running online with no
+                  hassle.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -456,4 +403,4 @@ class UserRegister extends Component {
 export default connect(
   null,
   { registerDispatch }
-)(UserRegister);
+)(VenueRegister);

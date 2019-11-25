@@ -65,3 +65,5 @@ typings/
 *.sass.map
 *.scss.map
 *.css
+!tailwindcss.css
+!tachyons.css

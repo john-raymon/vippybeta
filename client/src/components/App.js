@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch, Link, withRouter } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import { UserEndpointAgent as UserAgent } from "./../utils/agent";
+import userAgent from "./../libs/userAgent";
 import queryString from "query-string";
 
 // Route Components
 import Homepage from "./Homepage";
 import UserRegister from "./UserRegister";
+import VenueRegister from "./VenueRegister";
 import Snackbar from "@material-ui/core/Snackbar";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
@@ -70,7 +71,7 @@ class App extends Component {
     this.setSnackbar = this.setSnackbar.bind(this);
     this.hideSnackbar = this.hideSnackbar.bind(this);
     this.logoutDispatchWrapper = this.logoutDispatchWrapper.bind(this);
-    this.userAgent = new UserAgent();
+    this.userAgent = userAgent;
     this.state = {
       snackbar: {
         open: false,
@@ -137,6 +138,19 @@ class App extends Component {
                       {...props}
                       isAuth={isAuth}
                       setSnackbar={this.setSnackbar}
+                      userAgent={this.userAgent}
+                    />
+                  );
+                }}
+              />
+              <Route
+                path="/venue-sign-up"
+                exact
+                render={props => {
+                  return (
+                    <VenueRegister
+                      {...props}
+                      isAuth={isAuth}
                       userAgent={this.userAgent}
                     />
                   );

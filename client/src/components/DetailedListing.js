@@ -120,7 +120,26 @@ class DetailedListing extends Component {
                       listing.guestCount
                     } guest`}
                   </p>
+                  <div className="flex tw-flex-col lg:tw-flex-row lg:tw-items-center md:tw-mt-10 tw-px-4">
+                    <h1 className="michroma tracked lh-title tw-text-base white tw-pb-4 md:tw-pb-0 tw-mr-6">
+                      Like this listing ?
+                    </h1>
+                    <button
+                      onClick={this.handleReservationFormSubmit}
+                      className="button tw-bg-green-500 tw-px-6"
+                    >
+                      Reserve Now
+                    </button>
+                    {/* <ReservationForm
+                        handleSubmit={this.handleReservationFormSubmit}
+                        formError={formError}
+                        guestCount={listing.guestCount}
+                        bookingPrice={listing.bookingPrice}
+                        disclaimers={listing.disclaimers}
+                      /> */}
+                  </div>
                 </div>
+
                 <div className="w-100 w-25-l pl2">
                   <div>
                     <EventCard
@@ -139,23 +158,6 @@ class DetailedListing extends Component {
                       aspectRatioClass="aspect-ratio--3x4"
                     />
                   </div>
-                </div>
-              </div>
-              <div className="flex flex-column w-100">
-                <h1 className="michroma tracked lh-title white mb2">
-                  Like this listing ?
-                </h1>
-                <p className="michroma f5 tracked b lh-copy white pa0 mb3">
-                  Reserve below.
-                </p>
-                <div className="ReservationForm__container bg-vippy-1 w-100 mv2 br2">
-                  <ReservationForm
-                    handleSubmit={this.handleReservationFormSubmit}
-                    formError={formError}
-                    guestCount={listing.guestCount}
-                    bookingPrice={listing.bookingPrice}
-                    disclaimers={listing.disclaimers}
-                  />
                 </div>
               </div>
             </div>

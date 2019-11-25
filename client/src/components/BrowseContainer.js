@@ -109,7 +109,7 @@ class BrowseContainer extends Component {
     return (
       <div className="browseContainer w-100 br2 self-end">
         {!listings || !events ? (
-          <p className="michroma f7 tracked lh-extra white-90 pv2 ph3 tl button-glow">
+          <p className="michroma f7 tracked lh-extra white-90 pv2 ph3 tl">
             Enter your zip code above to browse nearby events and packages/vips.
           </p>
         ) : (

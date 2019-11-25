@@ -108,7 +108,7 @@ class Homepage extends Component {
           </div>
         </div>
         <div className="flex flex-column mt4 mt5-m">
-          <div className="w-100 order-2 order-0-l pr3-l">
+          <div className="w-100 order-2 order-0-l">
             <div className="sticky top-from-nav mt4 mt0-l w-100 flex flex-column flex-row-m">
               <p className="michroma f4 tracked b lh-copy white-90 pa3 w-70 z-2">
                 Know What To Expect Before Going Out by Reserving on Vippy.

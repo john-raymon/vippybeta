@@ -72,6 +72,7 @@ export class Agent {
       .attach(imagesProp, files)
       .then(this._responseBody);
   }
+
   authLogin(email, password, loginEndpoint) {
     return this._post(loginEndpoint, { email, password });
   } // move to UserEndpointAgent
@@ -107,6 +108,18 @@ export class UserEndpointAgent extends Agent {
   getAllReservations() {
     return this._get("api/reservation").catch(error => {
       throw error.response;
+    });
+  }
+}
+
+export class VenueEndpointAgent extends Agent {
+  constructor(token = null, API_ROOT = "/api/host") {
+    super(token, API_ROOT);
+  }
+
+  create(body) {
+    return this._post(`${this.API_ROOT}`, body).catch(error => {
+      throw error.response.body;
     });
   }
 }

@@ -26,7 +26,7 @@ export function EventCard({
   const eventStartDate = formatEventDate(eventStartTime);
   return (
     <div className={`fl pr3 pv3 ${widthClassName}`}>
-      <div className="eventCard flex flex-column">
+      <div className="eventCard flex flex-column md:tw-px-4">
         <div
           style={{
             backgroundRepeat: "no-repeat",
@@ -53,14 +53,8 @@ export function EventCard({
             </span>
           </p>
         </div>
-        <button className="dn db-ns vippyButton vippyButton--smaller mt2 mw1 self-start dim">
-          <div className="vippyButton__innerColorBlock">
-            <div className="w-100 h-100 flex flex-column justify-center">
-              <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1">
-                view
-              </p>
-            </div>
-          </div>
+        <button className="button tw-w-full tw-bg-green-500 tw-mt-4 tw-uppercase">
+          view event
         </button>
       </div>
     </div>
@@ -94,7 +88,7 @@ export function ListingCard({
   return (
     <div className={`fl pr3 pv3 ${widthClassName}`}>
       <Link to={`/listing/${listing.id}`}>
-        <div className="listingCard flex flex-column dim-1">
+        <div className="listingCard flex flex-column dim-1 md:tw-px-4">
           <div
             style={{
               backgroundRepeat: "no-repeat",
@@ -124,14 +118,8 @@ export function ListingCard({
               {`$${price} / up to ${guestCount} guest`}
             </p>
           </div>
-          <button className="dn db-ns vippyButton vippyButton--smaller mt2 mw1 self-start dim">
-            <div className="vippyButton__innerColorBlock">
-              <div className="w-100 h-100 flex flex-column justify-center">
-                <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1">
-                  view
-                </p>
-              </div>
-            </div>
+          <button className="button tw-p-3 tw-w-full tw-bg-green-500 tw-mt-4 tw-uppercase">
+            view listing
           </button>
         </div>
       </Link>
@@ -159,8 +147,8 @@ export function ReservationCard({
   return (
     <div className={`fl pr3 pv3 ${widthClassName}`}>
       <Link to={`/reservations/${reservationId}`}>
-        <div className="listingCard flex flex-row dim-1 pv3 b--white-10 bw1 ba br2 pv4">
-          <div className="w-35 pl4 self-center">
+        <div className="reservationCard flex flex-row tw-flex-wrap dim-1 pv3 b--white-10 bw1 ba br2 pv4 md:tw-px-4">
+          <div className="tw-w-full md:tw-w-2/6 self-center">
             <div
               style={{
                 backgroundRepeat: "no-repeat",
@@ -168,11 +156,11 @@ export function ReservationCard({
                 backgroundSize: "contain",
                 backgroundImage: `url(${getFirstImageUrl(images)})`
               }}
-              className="listingCard__image-container aspect-ratio aspect-ratio--7x5 bg-white-10"
+              className="reservationCard__image-container aspect-ratio aspect-ratio--7x5 bg-white-10"
             />
           </div>
-          <div class="w-75 ph3 pl4-l pr0-l flex flex-column justify-center">
-            <div className="listingCard__content-container flex flex-column">
+          <div class="tw-w-full md:tw-w-4/6 ph3 pl4-l pr0-l flex flex-column justify-center">
+            <div className="reservationCard__content-container flex flex-column">
               <p className="michroma f9 tracked lh-title white-50 pv2 ttu tl">
                 {`@ ${venueName}`}
               </p>
@@ -192,14 +180,8 @@ export function ReservationCard({
                 {`$${price} / up to ${guestCount} guest`}
               </p>
             </div>
-            <button className="dn db-ns vippyButton vippyButton--smaller mt2 w-auto self-start dim">
-              <div className="vippyButton__innerColorBlock pv2">
-                <div className="w-100 h-100 flex flex-column justify-center">
-                  <p className="michroma f10 f8-l tracked-1 b ttu lh-extra white-90 center pb1-l ph4">
-                    open reservation
-                  </p>
-                </div>
-              </div>
+            <button className="button tw-p-3 tw-w-full tw-bg-green-500 tw-mt-4 tw-uppercase">
+              open my reservation
             </button>
           </div>
         </div>

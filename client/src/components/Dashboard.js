@@ -30,7 +30,7 @@ class Dashboard extends Component {
       if (allActiveReservations) {
         return (
           <Fragment>
-            <p className="michroma f8 tracked lh-extra white-70 pb2 tl no-underline">
+            <p className="michroma tw-text-sm tracked lh-extra white-70 tw-py-2 tl no-underline">
               You have {activeReservationsCount} active or upcoming reservation
               {activeReservationsCount > 1 ? `s` : ""}.
             </p>
@@ -53,7 +53,7 @@ class Dashboard extends Component {
                       listing.event.address.state
                     } ${listing.event.address.zip}`}
                     images={listing.images}
-                    widthClassName="w-50 w-100-l"
+                    widthClassName="tw-w-full"
                   />
                 );
               })}
@@ -63,7 +63,7 @@ class Dashboard extends Component {
       }
       if (!activeReservationsCount) {
         return (
-          <p className="michroma f8 tracked lh-extra white-70 pv2 tl no-underline">
+          <p className="michroma font-base tracked lh-extra white-70 pv2 tl no-underline">
             You have no active/upcoming reservations
           </p>
         );
@@ -74,7 +74,7 @@ class Dashboard extends Component {
       if (pastReservationsCount) {
         return (
           <Fragment>
-            <p className="michroma f8 tracked lh-extra white-70 pb2 tl no-underline">
+            <p className="michroma tw-text-sm tracked lh-extra white-70 tw-py-2 tl no-underline">
               You have {pastReservationsCount} past reservation
               {pastReservationsCount > 1 ? `s` : ""}.
             </p>

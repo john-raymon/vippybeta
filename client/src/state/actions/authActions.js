@@ -14,6 +14,7 @@ export const register = (user, userAgent) => dispatch => {
   return dispatch({
     type: "USER_REGISTER",
     payload: userAgent.create(body).catch(error => {
+      // TODO: actually integrate Raven or something similar
       console.log("RAVEN: error in authActions register thunk", error);
       throw error;
     })

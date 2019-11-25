@@ -166,7 +166,7 @@ class Header extends Component {
                   >
                     dashboard
                   </NavLink>
-                  <span className="br bw05 b--white-70 mh3 h-100" />
+                  <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
                   <NavLink
@@ -175,13 +175,13 @@ class Header extends Component {
                   >
                     settings
                   </NavLink>
-                  <span className="br bw05 b--white-70 mh3 h-100" />
+                  <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
                   <a className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1">
                     help
                   </a>
-                  <span className="br bw05 b--white-70 mh3 h-100" />
+                  <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
                   <button
@@ -190,7 +190,7 @@ class Header extends Component {
                   >
                     sign out
                   </button>
-                  <span className="br bw05 b--white-70 mh3 h-100" />
+                  <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
                   <button
@@ -210,7 +210,7 @@ class Header extends Component {
                   >
                     sign in
                   </NavLink>
-                  <span className="br bw05 b--white-70 mh3 h-100" />
+                  <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
                   <NavLink
@@ -219,13 +219,13 @@ class Header extends Component {
                   >
                     create an account
                   </NavLink>
-                  <span className="br bw05 b--white-70 mh3 h-100" />
+                  <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
                   <a className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1">
                     help
                   </a>
-                  <span className="br bw05 b--white-70 mh3 h-100" />
+                  <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
                   <button
