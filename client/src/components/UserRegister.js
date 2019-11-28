@@ -15,11 +15,11 @@ import RegisterFormTextField from "./FormField";
 import ListingLineItem from "./ListingLineItem";
 
 /**
-   * 1. on first submit, save all form date, init request to twilio withonly phone number
+   * 1. on first submit, save all form date, init request to twilio with only phone number to send verification code to it
    * 2. if first step successful, set state hasInitVerif to true, display neccessary UI such different submit button,
    *    showing field for verification code, also showing resend code button, if not successful display errors
-   * 3. on second submit, with verifcation code, make request the CREATE users endpoint
-   *    attempt to create user with verification code, display errors if not successful
+   * 3. on second submit, with verifcation code, make request to the CREATE users endpoint
+   *    attempting to create the user with verification code, display errors if not successful
         if user wants to verify with another number they will have to click a change number button and have the
         the ui change accordingly to init proper request on future submit
    * 4. if second submit successful, then user will be registered and proper state will be updated
@@ -80,14 +80,7 @@ class UserRegister extends Component {
       ...allErrors
     });
   }
-  verifyAndCreateUser(user) {
-    return this.props.userAgent.create({
-      ...user,
-      verification_code: user.verificationCode,
-      fullname: user.fullName,
-      phonenumber: user.phoneNumber
-    });
-  }
+
   sendOnBoardCode(phoneNumber, email) {
     return this.props.userAgent.sendOnBoardCode(phoneNumber, email);
   }
