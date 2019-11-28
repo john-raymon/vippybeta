@@ -31,6 +31,11 @@ const HostSchema = new mongoose.Schema(
       lowercase: true,
       required: [true, "is required"]
     },
+    legalVenueName: {
+      type: String,
+      lowercase: true,
+      required: [true, "is required"]
+    },
     zipcode: { type: String, required: [true, "is required"] },
     phonenumber: {
       type: Number,
@@ -130,6 +135,7 @@ HostSchema.methods.toAuthJSON = function() {
     zipcode: this.zipcode,
     fullname: this.fullname,
     venueName: this.venueName,
+    legalVenueName: this.legalVenueName,
     phonenumber: this.phonenumber,
     type: "host",
     token: this.generateJWT(),
@@ -149,6 +155,7 @@ HostSchema.methods._toJSON = function() {
     phonenumber: this.phonenumber,
     type: "host",
     venueName: this.venueName,
+    legalVenueName: this.legalVenueName,
     venueId: this.venueId,
     isEmailConfirmed: this.isEmailConfirmed,
     completedPayment: this.hasStripeId(),
@@ -164,6 +171,7 @@ HostSchema.methods.toProfileJSON = function() {
     phonenumber: this.phonenumber,
     type: "host",
     venueName: this.venueName,
+    legalVenueName: this.legalVenueName,
     venueId: this.venueId,
     images: this.images
   };

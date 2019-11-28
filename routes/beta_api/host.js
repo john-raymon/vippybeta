@@ -52,7 +52,12 @@ router.patch(
   hostMiddleware,
   imageParser.array("venueImages", 10),
   async function(req, res, next) {
-    const whitelistedKeys = ["venueName", "fullname", "phonenumber"];
+    const whitelistedKeys = [
+      "venueName",
+      "fullname",
+      "phonenumber",
+      "legalVenueName"
+    ];
     for (let prop in req.body) {
       if (whitelistedKeys.includes(prop)) {
         req.vippyHost[prop] = req.body[prop];
@@ -135,7 +140,8 @@ router.post(
       "fullname",
       "zipcode",
       "password",
-      "accessCode"
+      "accessCode",
+      "legalVenueName" // ex: club paradise LLC instead of "Nightclub Paradise"
     ];
     const { hasMissingProps, propErrors } = isBodyMissingProps(
       requiredProps,
@@ -174,7 +180,8 @@ router.post(
           zipcode: req.body.zipcode,
           phonenumber: req.body.phonenumber,
           venueId: createId(5),
-          venueName: req.body.venueName
+          venueName: req.body.venueName,
+          legalVenueName: req.body.legalVenueName
         });
 
         host.setPassword(req.body.password);
