@@ -62,14 +62,14 @@ app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
-// forward 404s to error handler
+// forward 404s to error handler (note: this is a middleware, not error handler, hence no `err` argument)
 app.use(function(req, res, next) {
   const err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
 
-// error handler
+// error handler - any error not caught before this will be caught here, 404s are also sent here from middleware above
 app.use(function(err, req, res, next) {
   console.log("the error in error handler is", err);
   if (isProduction) {
@@ -78,6 +78,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({
     success: false,
+    name: err.name || "error",
+    message:
+      err.message ||
+      "Sorry for the inconvenience. We're experiencing technical difficulties, please refresh and try again",
     errors: {
       [err.name || "error"]: {
         message: err.message || ""

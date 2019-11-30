@@ -1,5 +1,5 @@
 const initialState = {
-  isAuth: false,
+  isAuth: false, // TODO: rename this to something isUserAuth
   isVenueAuth: false,
   venue: null,
   user: null

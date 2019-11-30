@@ -39,8 +39,8 @@
   },
   "scripts": {
     "tailwind": "tailwind build ./src/styles/tailwindcss.css -c ./tailwind.config.js -o ./src/styles/tailwindcss-out.css",
-    "build-css": "npm run tailwind && node-sass-chokidar --include-path ./node_modules/ ./src -o ./src",
-    "watch-css": "npm run build-css && tailwind build ./src/styles/tailwindcss.css -c ./tailwind.config.js -o ./src/styles/tailwindcss-out.css --recurisve && tailnode-sass-chokidar --include-path ./node_modules/ ./src -o ./src --watch --recursive",
+    "build-css": "yarn tailwind && node-sass-chokidar --include-path ./node_modules/ ./src -o ./src",
+    "watch-css": "yarn build-css && tailwind build ./src/styles/tailwindcss.css -c ./tailwind.config.js -o ./src/styles/tailwindcss-out.css --recurisve && tailnode-sass-chokidar --include-path ./node_modules/ ./src -o ./src --watch --recursive",
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

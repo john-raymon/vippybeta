@@ -6,6 +6,9 @@ module.exports = {
       mich: ["Michroma", "sans-serif"]
     },
     extend: {
+      fontSize: {
+        "2xs": ".50rem"
+      },
       spacing: {
         "1/2": "50%",
         "1/3": "33.333333%",

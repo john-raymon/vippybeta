@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Route, Redirect, Switch, Link, withRouter } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import userAgent from "./../libs/userAgent";
+import venueAgent from "./../libs/venueAgent";
 import queryString from "query-string";
 
 // Route Components
@@ -20,7 +21,11 @@ import DetailedReservation from "./DetailedReservation";
 import Header from "./Header";
 
 // Redux Actions
-import { logout, initUser } from "../state/actions/authActions";
+import {
+  logout,
+  initUser,
+  register as registerDispatch
+} from "../state/actions/authActions";
 
 // Styles
 import "../styles/application.css";
@@ -72,6 +77,7 @@ class App extends Component {
     this.hideSnackbar = this.hideSnackbar.bind(this);
     this.logoutDispatchWrapper = this.logoutDispatchWrapper.bind(this);
     this.userAgent = userAgent;
+    this.venueAgent = venueAgent;
     this.state = {
       snackbar: {
         open: false,
@@ -107,7 +113,7 @@ class App extends Component {
     this.props.logout();
   }
   render() {
-    const { isAuth } = this.props;
+    const { isAuth, isVenueAuth, venueRegisterDispatch } = this.props;
     const logout = this.logoutDispatchWrapper;
     return (
       <MuiThemeProvider theme={theme}>
@@ -150,8 +156,9 @@ class App extends Component {
                   return (
                     <VenueRegister
                       {...props}
-                      isAuth={isAuth}
-                      userAgent={this.userAgent}
+                      isAuth={isVenueAuth}
+                      venueRegisterDispatch={venueRegisterDispatch}
+                      venueAgent={this.venueAgent}
                     />
                   );
                 }}
@@ -241,6 +248,6 @@ class App extends Component {
 }
 
 export default connect(
-  state => ({ isAuth: state.auth.isAuth }),
-  { logout, initUser }
+  state => ({ isAuth: state.auth.isAuth, isVenueAuth: state.auth.isVenueAuth }),
+  { logout, initUser, venueRegisterDispatch: registerDispatch("venue") } // TODO: lift UserRegister's component's registerDispatch to App.js component
 )(withRouter(App));

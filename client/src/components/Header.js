@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 
 // Components
@@ -56,7 +56,7 @@ class Header extends Component {
               </NavLink>
             </div>
             {isAuth && (
-              <p className="michroma f8 tracked-1 ttu lh-extra white-40 pt1">
+              <p className="michroma tw-text-2xs tracked-1 ttu lh-extra white-40 pt1">
                 {`hello ${user.firstname}`}
               </p>
             )}
@@ -68,13 +68,13 @@ class Header extends Component {
                       <NavLink
                         to="/dashboard"
                         onClick={e => this.toggleDrawer()}
-                        className="michroma f8 tracked-1 ttu lh-extra no-underline near-white"
+                        className="michroma tw-text-2xs tracked-1 ttu lh-extra no-underline near-white"
                       >
                         Dashboard
                       </NavLink>
                     </li>
                     <li className="mv2">
-                      <p className="michroma f8 tracked-1 ttu lh-extra">
+                      <p className="michroma tw-text-2xs tracked-1 ttu lh-extra">
                         my reservations
                       </p>
                     </li>
@@ -84,7 +84,7 @@ class Header extends Component {
                           this.toggleDrawer();
                           this.props.logout();
                         }}
-                        className="bn michroma f8 bg-transparent outline-0 tracked-1 pa0 ttu lh-extra dim pointer silver"
+                        className="bn michroma tw-text-2xs bg-transparent outline-0 tracked-1 pa0 ttu lh-extra dim pointer silver"
                       >
                         logout
                       </button>
@@ -96,7 +96,7 @@ class Header extends Component {
                       <NavLink
                         to="/sign-up"
                         onClick={e => this.toggleDrawer()}
-                        className="michroma f8 tracked-1 ttu lh-extra no-underline near-white"
+                        className="michroma tw-text-2xs tracked-1 ttu lh-extra no-underline near-white"
                       >
                         create an account
                       </NavLink>
@@ -105,7 +105,7 @@ class Header extends Component {
                       <NavLink
                         to="/login"
                         onClick={e => this.toggleDrawer()}
-                        className="michroma f8 tracked-1 ttu lh-extra no-underline near-white"
+                        className="michroma tw-text-2xs tracked-1 ttu lh-extra no-underline near-white"
                       >
                         sign in
                       </NavLink>
@@ -113,26 +113,29 @@ class Header extends Component {
                   </Fragment>
                 )}
                 <li className="mv2" onClick={e => this.toggleDrawer()}>
-                  <p className="michroma f8 tracked-1 ttu lh-extra">
+                  <p className="michroma tw-text-2xs tracked-1 ttu lh-extra">
                     browse events near you
                   </p>
                 </li>
                 <Divider />
                 <li className="mv2" onClick={e => this.toggleDrawer()}>
-                  <p className="michroma f8 tracked-1 ttu lh-extra">
+                  <p className="michroma tw-text-2xs tracked-1 ttu lh-extra">
                     more info/faq
                   </p>
                 </li>
                 <li className="mv2" onClick={e => this.toggleDrawer()}>
-                  <p className="michroma f8 tracked-1 ttu lh-extra">
+                  <p className="michroma tw-text-2xs tracked-1 ttu lh-extra">
                     customer support
                   </p>
                 </li>
               </ul>
-              <p className="michroma f8 tracked-1 ttu lh-extra white-40 pt1 self-end">
-                do you run a night club and want to list your events on vippy ?
-                get in touch here.
-              </p>
+              <Link
+                onClick={e => this.toggleDrawer()}
+                to="/venue-sign-up"
+                className="michroma tw-text-2xs tracked-1 ttu lh-extra white-40 pt1 self-end"
+              >
+                Click here to register your venue.
+              </Link>
             </div>
           </div>
         </Drawer>
@@ -144,7 +147,7 @@ class Header extends Component {
               </NavLink>
             </div>
             {isAuth && (
-              <p className="michroma f8 tracked-1 ttu lh-extra white-40 pt1">
+              <p className="michroma tw-text-2xs tracked-1 ttu lh-extra white-40 pt1">
                 {`hello ${user.firstname}`}
               </p>
             )}
@@ -162,7 +165,7 @@ class Header extends Component {
                 <li>
                   <NavLink
                     to="/dashboard"
-                    className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
+                    className="michroma tw-text-2xs tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
                   >
                     dashboard
                   </NavLink>
@@ -171,14 +174,14 @@ class Header extends Component {
                 <li>
                   <NavLink
                     to="/settings"
-                    className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
+                    className="michroma tw-text-2xs tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
                   >
                     settings
                   </NavLink>
                   <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
-                  <a className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1">
+                  <a className="michroma tw-text-2xs tracked-mega ttu lh-extra pointer dim mh1">
                     help
                   </a>
                   <span className="br bw1 b--white-70 mh3 h-100" />
@@ -186,7 +189,7 @@ class Header extends Component {
                 <li>
                   <button
                     onClick={() => this.props.logout()}
-                    className="bn michroma f8 bg-transparent outline-0 tracked-mega ttu lh-extra dim pointer ph0 white"
+                    className="bn michroma tw-text-2xs bg-transparent outline-0 tracked-mega ttu lh-extra dim pointer ph0 white"
                   >
                     sign out
                   </button>
@@ -195,7 +198,7 @@ class Header extends Component {
                 <li>
                   <button
                     onClick={() => this.toggleDrawer(true)}
-                    className="bn michroma f8 bg-transparent outline-0 tracked-mega ttu lh-extra dim pointer mh1 ph0 white"
+                    className="bn michroma tw-text-2xs bg-transparent outline-0 tracked-mega ttu lh-extra dim pointer mh1 ph0 white"
                   >
                     more
                   </button>
@@ -206,7 +209,7 @@ class Header extends Component {
                 <li>
                   <NavLink
                     to="/login"
-                    className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
+                    className="michroma tw-text-2xs tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
                   >
                     sign in
                   </NavLink>
@@ -215,14 +218,14 @@ class Header extends Component {
                 <li>
                   <NavLink
                     to="/sign-up"
-                    className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
+                    className="michroma tw-text-2xs tracked-mega ttu lh-extra pointer dim mh1 no-underline near-white"
                   >
                     create an account
                   </NavLink>
                   <span className="br bw1 b--white-70 mh3 h-100" />
                 </li>
                 <li>
-                  <a className="michroma f8 tracked-mega ttu lh-extra pointer dim mh1">
+                  <a className="michroma tw-text-2xs tracked-mega ttu lh-extra pointer dim mh1">
                     help
                   </a>
                   <span className="br bw1 b--white-70 mh3 h-100" />
@@ -230,7 +233,7 @@ class Header extends Component {
                 <li>
                   <button
                     onClick={() => this.toggleDrawer(true)}
-                    className="bn michroma f8 bg-transparent outline-0 tracked-mega ttu lh-extra dim pointer mh1 ph0 white"
+                    className="bn michroma tw-text-2xs bg-transparent outline-0 tracked-mega ttu lh-extra dim pointer mh1 ph0 white"
                   >
                     more
                   </button>

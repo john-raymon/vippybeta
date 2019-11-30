@@ -95,7 +95,7 @@ class Homepage extends Component {
               >
                 <div className="vippyButton__innerColorBlock">
                   <div className="w-100 h-100 flex flex-column justify-center">
-                    <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1">
+                    <p className="michroma tracked-1 b ttu lh-extra white-90 center pb1">
                       search
                     </p>
                   </div>

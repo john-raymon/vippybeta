@@ -125,7 +125,7 @@ export default class DetailedReservation extends Component {
                   >
                     <div className="vippyButton__innerColorBlock">
                       <div className="w-100 h-100 flex flex-column justify-center">
-                        <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1 w-100">
+                        <p className="michroma tracked-1 b ttu lh-extra white-90 center pb1 w-100">
                           Redeem at Door
                         </p>
                       </div>

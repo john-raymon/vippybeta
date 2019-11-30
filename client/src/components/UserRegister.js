@@ -32,7 +32,6 @@ class UserRegister extends Component {
     this.resetErrorsState = this.resetErrorsState.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
     this.sendOnBoardCode = this.sendOnBoardCode.bind(this);
-    this.verifyAndCreateUser = this.verifyAndCreateUser.bind(this);
     this.revertInitOfVerif = this.revertInitOfVerif.bind(this);
     this.state = {
       hasInitVerif: false,
@@ -41,6 +40,7 @@ class UserRegister extends Component {
       password: "",
       confirmPassword: "",
       fullName: "",
+      zipCode: "",
       verificationCode: "",
       error: ""
     };
@@ -69,6 +69,9 @@ class UserRegister extends Component {
   }
   resetErrorsState() {
     const allErrors = Object.keys(this.state).reduce((allErrors, key) => {
+      // since we created the allErrorsExampleName programatically by
+      // interpolating, we have to reduce to know exact key to erase. A regex to match allErrors will be more efficient here
+      // or simply creating an errors object in the state.
       const allKeyChars = key.toLowerCase();
       if (allKeyChars.slice(-5) === "error") {
         allErrors[key] = undefined;
@@ -432,7 +435,7 @@ class UserRegister extends Component {
               >
                 <div className="vippyButton__innerColorBlock">
                   <div className="w-100 h-100 flex flex-column justify-center">
-                    <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1">
+                    <p className="michroma tracked-1 b ttu lh-extra white-90 center pb1">
                       sign up
                     </p>
                   </div>
@@ -448,5 +451,5 @@ class UserRegister extends Component {
 
 export default connect(
   null,
-  { registerDispatch }
+  { registerDispatch: registerDispatch() }
 )(UserRegister);
