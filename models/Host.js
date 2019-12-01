@@ -48,7 +48,7 @@ const HostSchema = new mongoose.Schema(
         },
         "This is not a valid 10 digit number"
       ],
-      required: [true, "is required"]
+      required: [true, "A phone nuber is required"]
     },
     type: {
       type: String,
@@ -70,7 +70,9 @@ const HostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-HostSchema.plugin(uniqueValidator, { message: "is already taken" });
+HostSchema.plugin(uniqueValidator, {
+  message: "The phone number belongs to an existing account."
+});
 
 HostSchema.methods.addProduct = function(id) {
   if (this.products.indexOf(id) === -1) {

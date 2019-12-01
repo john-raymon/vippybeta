@@ -26,7 +26,12 @@ const setTokenInStorageMiddleware = ({
     debugMode();
     await localforage.setItem(
       "jwt",
-      action.payload.user.token || action.payload.token || ""
+      (action.payload.venueHost && action.payload.venueHost.token) ||
+        (action.payload.user && action.payload.user.token) ||
+        action.payload.token ||
+        ""
+      // TODO: abstract above, find a way to make setTokenInStorageMiddleware function more configurable so that the key to reference the token isn'try
+      // hardcoded for every different action
     );
   } else if (unsetActions.includes(action.type)) {
     debugMode();

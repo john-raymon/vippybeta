@@ -23,7 +23,13 @@ router.use(function(err, req, res, next) {
     return res.status(422).json({
       success: false,
       name: "ValidationError",
-      errors: err.errors
+      errors: Object.keys(err.errors).reduce(function(errors, key) {
+        errors[key] = err.errors[key].message;
+
+        return errors;
+      }, {})
+      // reduce to values to be only string from respective error's message rather than
+      // entire ValidationError
     });
   }
 

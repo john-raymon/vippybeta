@@ -85,6 +85,7 @@ class App extends Component {
       }
     };
   }
+
   componentDidUpdate(prevProps, prevState) {
     // if (!prevProps.isAuth && this.props.isAuth) {
     //   this.props.initUser(this.userAgent);
@@ -113,7 +114,12 @@ class App extends Component {
     this.props.logout();
   }
   render() {
-    const { isAuth, isVenueAuth, venueRegisterDispatch } = this.props;
+    const {
+      isAuth: isRegularAuth,
+      isVenueAuth,
+      venueRegisterDispatch
+    } = this.props;
+    const isAuth = isRegularAuth || isVenueAuth;
     const logout = this.logoutDispatchWrapper;
     return (
       <MuiThemeProvider theme={theme}>
@@ -156,7 +162,7 @@ class App extends Component {
                   return (
                     <VenueRegister
                       {...props}
-                      isAuth={isVenueAuth}
+                      isAuth={isAuth}
                       venueRegisterDispatch={venueRegisterDispatch}
                       venueAgent={this.venueAgent}
                     />

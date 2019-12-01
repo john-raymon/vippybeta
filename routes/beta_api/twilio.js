@@ -88,8 +88,10 @@ router.get("/send-onboard-code", function(req, res, next) {
         if (numberUserCount > 0) {
           return res.status(422).json({
             success: false,
+            message: "This phone number is already linked to a user account",
             error: "This phone number is already linked to a user account",
-            errorType: "TAKEN_PHONE_NUMBER"
+            errorType: "TAKEN_PHONE_NUMBER",
+            name: "validationError"
           });
         }
         if (emailUserCount > 0) {

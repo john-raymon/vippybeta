@@ -240,7 +240,7 @@ class UserRegister extends Component {
             <div className="sticky top-from-nav mt4 mt0-l w-100 flex flex-column flex-row-m">
               <p className="michroma f4 tracked b lh-copy white-90 pa3 w-70 z-2">
                 Know What To Expect Before Going Out by Reserving on Vippy.
-                <span className="db lh-copy white f8 pt3">
+                <span className="db lh-copy white  pt3">
                   We exclusively partner with venues to bring forth underrated,
                   and reliable experiences.
                   <span className="db f7 white pt1 underline">
@@ -297,14 +297,14 @@ class UserRegister extends Component {
                   />
                   <div className="flex flex-row items-center pt1">
                     <button
-                      className="michroma outline-0 bn bg-transparent f8 white-90 o-60 pa0 tracked lh-title pointer"
+                      className="michroma outline-0 bn bg-transparent  white-90 o-60 pa0 tracked lh-title pointer"
                       onClick={this.revertInitOfVerif}
                     >
                       verify a different number
                     </button>
                     <p className="flex white-50 mh1 self-center pt1">|</p>
                     <button
-                      className="michroma outline-0 bn bg-transparent f8 white-90 o-60 pa0 tracked lh-title pointer"
+                      className="michroma outline-0 bn bg-transparent  white-90 o-60 pa0 tracked lh-title pointer"
                       onClick={this.onFormSubmit}
                     >
                       resend code
@@ -323,7 +323,7 @@ class UserRegister extends Component {
                 >
                   <div className="vippyButton__innerColorBlock">
                     <div className="w-100 h-100 flex flex-column justify-center">
-                      <p className="michroma f8 tracked-1 b ttu lh-extra white-90 center pb1">
+                      <p className="michroma tracked-1 b ttu lh-extra white-90 center pb1">
                         verify
                       </p>
                     </div>
@@ -358,7 +358,7 @@ class UserRegister extends Component {
               {hasInitVerif && (
                 <div className="flex flex-row items-center pt2">
                   <button
-                    className="michroma outline-0 bn bg-transparent f8 white-90 o-60 pa0 tracked lh-title pointer"
+                    className="michroma outline-0 bn bg-transparent  white-90 o-60 pa0 tracked lh-title pointer"
                     onClick={this.revertInitOfVerif}
                   >
                     verify a different number

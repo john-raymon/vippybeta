@@ -14,6 +14,7 @@ export const register = (type = "user") => {
         phonenumber: venue.phoneNumber,
         email: venue.email,
         venueName: venue.venueName,
+        legalVenueName: venue.legalVenueName,
         password: venue.password,
         accessCode: venue.accessCode
       };

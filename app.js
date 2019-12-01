@@ -71,7 +71,7 @@ app.use(function(req, res, next) {
 
 // error handler - any error not caught before this will be caught here, 404s are also sent here from middleware above
 app.use(function(err, req, res, next) {
-  console.log("the error in error handler is", err);
+  // console.log("the error in error handler is", err);
   if (isProduction) {
     console.log(err.stack); // print stacktrace
   }

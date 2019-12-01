@@ -118,7 +118,7 @@ export class VenueEndpointAgent extends Agent {
   }
 
   create(body) {
-    return this._post(`${this.API_ROOT}`, body).catch(error => {
+    return this._post("/", body).catch(error => {
       throw error.response.body;
     });
   }

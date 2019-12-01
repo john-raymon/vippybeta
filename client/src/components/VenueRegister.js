@@ -101,10 +101,14 @@ export default class VenueRegister extends Component {
         .string()
         .oneOf([yup.ref("password"), null], "Passwords don't match")
         .required("Confirm your password"),
-      fullName: yup.string().required("The full name of an owner or manager."),
+      fullName: yup
+        .string()
+        .required("Please provide the full name of an owner or manager."),
       legalVenueName: yup
         .string()
-        .required("The legal name of the business, or entity. (Example LLC)"),
+        .required(
+          "Please provide the legal name of the business, or entity. (Example LLC)"
+        ),
       zipCode: yup
         .string()
         .matches(zipCodeRegExp, {
@@ -154,13 +158,20 @@ export default class VenueRegister extends Component {
         ); // Redux will update auth state and trigger a location change if successful login
       })
       .catch(error => {
+        window.scrollTo(0, 0);
         // COMMON GOTCHA: The yup returns a ValidationError that has aggregated Yup ValidationError(s) within it
         // our backend can/may return mongoose ValidationError(s) that do not contain an inner property but do
         // contain an errors property
-
+        if (!error) {
+          return this.setState({
+            error:
+              "We're sorry, we're experiencing technical issues. Please try again or contact us at info@getvippy.com."
+          });
+        }
         // catch validation errors
-        if (error.name === "ValidationError") {
-          if (error.inner.length) {
+        if (error.name && error.name === "ValidationError") {
+          if (error.inner) {
+            // error.inner is array of Yup ValidationErrors
             // if has inner then it is a Yup ValidationError thrown from this.validate method
             let errors = {};
             error.inner.forEach(error => {
@@ -172,9 +183,9 @@ export default class VenueRegister extends Component {
             return this.setState({
               errors
             });
-            // TODO: loop through each validationError within error.inner and create a property within this.state.errors using it's error.inner[0].path as the key
           }
-          if (error.errors.length) {
+          if (error.errors) {
+            // error.errors is object with keys matching path, and value as the Mongoose ValidationError
             return this.setState({
               errors: error.errors
             });
@@ -192,7 +203,7 @@ export default class VenueRegister extends Component {
   }
 
   render() {
-    const { error, errors } = this.state;
+    const { newVenue, error, errors } = this.state;
     return (
       <div className="flex flex-column flex-row-l mw8 center pv4 ph1">
         <div className="registerComponent flex flex-column w-100">
@@ -202,23 +213,38 @@ export default class VenueRegister extends Component {
           </h1>
 
           {error && (
-            <p className="michroma f6 tracked ttc yellow lh-copy o-70 pt3 pb3">
+            <p className="michroma f6 tracked tw-text-center yellow lh-copy o-70 pt3 pb3">
               {error}
             </p>
           )}
 
-          <div className="tw-flex tw-flex-col md:tw-flex-row tw-py-8">
+          <div className="tw-flex tw-flex-col md:tw-flex-row tw-py-8 md:tw-py-6">
             <form
-              className="registerComponent__form flex flex-column tw-w-full md:tw-w-6/12 mt2"
+              className="registerComponent__form flex flex-column tw-w-full md:tw-w-6/12 tw-mt-6"
               onChange={this.handleFormChange}
             >
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="What's legal business name of venue?"
+                  type="text"
+                  label="Legal Venue Name"
+                  name="legalVenueName"
+                  value={newVenue.legalVenueName}
+                />
+
+                {errors.legalVenueName && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {errors.legalVenueName}
+                  </p>
+                )}
+              </div>
               <div className="mb3 w-100">
                 <RegisterFormTextField
                   placeholder="What's the venue's email?"
                   type="email"
                   label="Email"
                   name="email"
-                  value={this.state.email}
+                  value={newVenue.email}
                 />
 
                 {errors.email && (
@@ -234,12 +260,12 @@ export default class VenueRegister extends Component {
                   type="text"
                   label="Phone Number"
                   name="phoneNumber"
-                  value={this.state.phoneNumber}
+                  value={newVenue.phoneNumber}
                 />
 
-                {errors.phoneNumber && (
+                {(errors.phoneNumber || errors.phonenumber) && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                    {errors.phoneNumber}
+                    {errors.phoneNumber || errors.phonenumber}
                   </p>
                 )}
               </div>
@@ -249,7 +275,7 @@ export default class VenueRegister extends Component {
                   type="text"
                   label="Zip Code"
                   name="zipCode"
-                  value={this.state.zipCode}
+                  value={newVenue.zipCode}
                 />
                 {errors.zipCode && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
@@ -263,7 +289,7 @@ export default class VenueRegister extends Component {
                   type="password"
                   label="Password"
                   name="password"
-                  value={this.state.password}
+                  value={newVenue.password}
                 />
                 {errors.password && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
@@ -277,7 +303,7 @@ export default class VenueRegister extends Component {
                   type="password"
                   label="Confirm Password"
                   name="confirmPassword"
-                  value={this.state.confirmPassword}
+                  value={newVenue.confirmPassword}
                 />
                 {errors.confirmPassword && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
@@ -291,11 +317,28 @@ export default class VenueRegister extends Component {
                   type="text"
                   label="Full Name"
                   name="fullName"
-                  value={this.state.fullName}
+                  value={newVenue.fullName}
                 />
                 {errors.fullName && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
                     {errors.fullName}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Venue Access Code"
+                  type="text"
+                  label="Access Code"
+                  name="accessCode"
+                  value={newVenue.accessCode}
+                />
+                <p className="michroma tw-text-xs tw-leading-tight tw-text-white tw-tracking-widest tw-capitalize tw-mt-2 tw-text-gray-500">
+                  venue verification code provided by a Vippy representative
+                </p>
+                {errors.accessCode && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {errors.accessCode}
                   </p>
                 )}
               </div>
@@ -314,7 +357,7 @@ export default class VenueRegister extends Component {
               </button>
             </form>
             <div className="tw-flex tw-justify-end tw-items-center tw-flex-grow md:tw-px-6 tw-order-first md:tw-order-none">
-              <div className="tw-flex tw-flex-col tw-w-full md:tw-items-end">
+              <div className="tw-flex tw-items-center tw-flex-col tw-w-full md:tw-items-end">
                 <div className="tw-flex md:tw-justify-between tw-items-center tw-max-w-sm">
                   <div className="tw-w-10 tw-max-w-xs tw-order-last md:tw-order-first">
                     <GlobeIcon />
@@ -323,7 +366,7 @@ export default class VenueRegister extends Component {
                     We don’t charge anything up-front
                   </p>
                 </div>
-                <p className="tw-w-full tw-text-xs tw-text-gray-600 tw-mt-2 md:tw-text-right tw-leading-relaxed md:tw-max-w-sm lg:tw-max-md">
+                <p className="tw-w-full tw-text-center tw-text-xs tw-text-gray-600 tw-mt-2 md:tw-text-right tw-leading-relaxed md:tw-max-w-sm lg:tw-max-md">
                   We only charge a 15 percent fee when a reservation is made at
                   your venue. Allowing you to get up and running online with no
                   hassle.
