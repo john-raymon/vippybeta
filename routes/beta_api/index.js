@@ -24,7 +24,13 @@ router.use(function(err, req, res, next) {
       success: false,
       name: "ValidationError",
       errors: Object.keys(err.errors).reduce(function(errors, key) {
-        errors[key] = err.errors[key].message;
+        const currentError = err.errors[key];
+        errors[key] =
+          currentError.kind === "mongoose-unique-validator"
+            ? currentError.path === "phonenumber"
+              ? "This phone number belongs to an existing account."
+              : `This ${currentError.path} bellongs to an existing account.`
+            : currentError.message;
 
         return errors;
       }, {})

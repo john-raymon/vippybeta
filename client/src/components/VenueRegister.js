@@ -33,6 +33,7 @@ export default class VenueRegister extends Component {
         legalVenueName: "",
         confirmPassword: "" // keep outside of newVenue since we're only concerned with this on client-side not sending it server
       },
+      error: "",
       errors: {}
     };
   }
@@ -152,10 +153,22 @@ export default class VenueRegister extends Component {
     };
     this.validate(newVenue)
       .then(validatedNewVenue => {
-        return this.props.venueRegisterDispatch(
-          validatedNewVenue,
-          this.props.venueAgent
-        ); // Redux will update auth state and trigger a location change if successful login
+        return this.props
+          .venueRegisterDispatch(validatedNewVenue, this.props.venueAgent)
+          .then(resp => {
+            // after a sucessfull registration we can attempt to get the stripe OAuth url to begin
+            // connecting Stripe account
+            // make request to /api/host/stripe/auth
+            return this.props.venueAgent.getStripeoAuthUrl().then(resp => {
+              if (resp.success) {
+                // similar behavior as an HTTP redirect
+                return window.location.replace(resp.redirectUrl);
+              }
+              throw Error("We apologize for the inconvenience"); // TODO: if failed for internal reasons, attempt to fetch redirect url again, if failed set up job
+              // to have vippy contact them, or have them return to the site later to complete it via
+              // an email as we get it fixed
+            });
+          }); // Redux will update auth state and trigger a location change if successful login
       })
       .catch(error => {
         window.scrollTo(0, 0);
@@ -262,7 +275,6 @@ export default class VenueRegister extends Component {
                   name="phoneNumber"
                   value={newVenue.phoneNumber}
                 />
-
                 {(errors.phoneNumber || errors.phonenumber) && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
                     {errors.phoneNumber || errors.phonenumber}

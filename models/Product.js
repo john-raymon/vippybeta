@@ -1,5 +1,4 @@
-var mongoose = require("mongoose")
-var uniqueValidator = require("mongoose-unique-validator")
+var mongoose = require("mongoose");
 
 var ProductSchema = mongoose.Schema({
   title: String,
@@ -9,4 +8,4 @@ var ProductSchema = mongoose.Schema({
   description: String,
   quantity: Number,
   unlimitedQuantity: Boolean
-})
+});

@@ -70,6 +70,8 @@ const ProtectedRoute = ({ component: Component, render, isAuth, ...rest }) => {
   );
 };
 
+// TODO : add button universal banner to app layout telling venue
+// to complete stripe registration
 class App extends Component {
   constructor(props) {
     super(props);
@@ -86,11 +88,6 @@ class App extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // if (!prevProps.isAuth && this.props.isAuth) {
-    //   this.props.initUser(this.userAgent);
-    // }
-  }
   setSnackbar(message = "") {
     console.log("set snackbar with", message);
     this.setState({
@@ -119,7 +116,16 @@ class App extends Component {
       isVenueAuth,
       venueRegisterDispatch
     } = this.props;
-    const isAuth = isRegularAuth || isVenueAuth;
+    const isAuth = isRegularAuth || isVenueAuth; // only use isAuth for generic things that
+    // can be a shared resource for all auths. (for example: ProtectedRoute^^ wrapper components
+    // usually can be shared with venue/regular-user/promoter,
+    // therefor it's isAuth prop can be the universal isAuth,
+    // on the other hand the inner wrapped component inside a
+    // ProtectedRoute should conditionally render resources
+    // based on the specific is___Auth variables)
+    //——real usecase is our Dashboard ProtectedRoute, all auth users have dashboards, thus they should all share the same Dashboard component——
+    // rendering based on the more specific is___Auth variables
+
     const logout = this.logoutDispatchWrapper;
     return (
       <MuiThemeProvider theme={theme}>
@@ -162,11 +168,31 @@ class App extends Component {
                   return (
                     <VenueRegister
                       {...props}
+                      isVenueAuth={isVenueAuth}
                       isAuth={isAuth}
                       venueRegisterDispatch={venueRegisterDispatch}
                       venueAgent={this.venueAgent}
                     />
                   );
+                }}
+              />
+              <ProtectedRoute
+                isAuth={isVenueAuth}
+                path="/api/host/stripe/token"
+                exact
+                render={props => {
+                  alert("one moment while we set up your account");
+                  this.venueAgent
+                    .completeStripeFlow(
+                      `${props.location.pathname}${props.location.search}`
+                    )
+                    .then(resp => {
+                      alert("nice! youre all set");
+                    })
+                    .catch(error => {
+                      debugger;
+                    });
+                  return <p>hello</p>;
                 }}
               />
               <ProtectedRoute
@@ -254,6 +280,10 @@ class App extends Component {
 }
 
 export default connect(
-  state => ({ isAuth: state.auth.isAuth, isVenueAuth: state.auth.isVenueAuth }),
+  state => ({
+    isAuth: state.auth.isAuth,
+    isVenueAuth: state.auth.isVenueAuth,
+    venue: state.auth.venue
+  }),
   { logout, initUser, venueRegisterDispatch: registerDispatch("venue") } // TODO: lift UserRegister's component's registerDispatch to App.js component
 )(withRouter(App));

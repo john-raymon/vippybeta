@@ -24,7 +24,8 @@ const HostSchema = new mongoose.Schema(
       },
       default: new Map()
     },
-    isEmailConfirmed: { type: Boolean, unqiue: true, default: true },
+    isEmailConfirmed: { type: Boolean, unqiue: true, default: true }, // TODO: Maybe change this to false? And implement email verification feature, also check
+    // if we're relying on isEmailConfirmed for anything right now befroe removing default true
     venueName: { type: String },
     fullname: {
       type: String,
@@ -71,7 +72,7 @@ const HostSchema = new mongoose.Schema(
 );
 
 HostSchema.plugin(uniqueValidator, {
-  message: "The phone number belongs to an existing account."
+  type: "mongoose-unique-validator"
 });
 
 HostSchema.methods.addProduct = function(id) {

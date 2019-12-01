@@ -29,7 +29,7 @@ const PromoterSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-PromoterSchema.plugin(uniqueValidator, { message: "is already taken" });
+PromoterSchema.plugin(uniqueValidator, { type: "mongoose-unique-validator" });
 
 PromoterSchema.methods.setPassword = function(password) {
   this.salt = crypto.randomBytes(16).toString("hex");

@@ -5,22 +5,6 @@ const initialState = {
   user: null
 };
 
-const venueReducer = (state, { type, payload }) => {
-  switch (type) {
-    case "VENUE_REGISTER_REJECTED":
-      return { ...state, ...initialState };
-    case "VENUE_REGISTER_FULFILLED":
-      return {
-        ...state,
-        ...initialState,
-        isVenueAuth: true,
-        venue: payload.venueHost
-      };
-    default:
-      return state;
-  }
-};
-
 export default (state = initialState, { type, payload = {} }) => {
   switch (type) {
     case `USER_REGISTER_FULFILLED`:
@@ -39,10 +23,17 @@ export default (state = initialState, { type, payload = {} }) => {
     case "USER_LOGOUT":
     case "USER_LOGIN_REJECTED":
       return { ...state, isAuth: initialState.isAuth, user: initialState.user };
-    default:
+
+    case "VENUE_REGISTER_REJECTED":
+      return { ...state, ...initialState };
+    case "VENUE_REGISTER_FULFILLED":
       return {
         ...state,
-        ...venueReducer(state, { type, payload })
+        ...initialState,
+        isVenueAuth: true,
+        venue: payload.venueHost
       };
+    default:
+      return state;
   }
 };

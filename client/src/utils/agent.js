@@ -38,12 +38,12 @@ export class Agent {
       .then(this._responseBody);
   }
 
-  async _get(url) {
+  async _get(url, fullPath = false) {
     const returnedToken = await this._initToken();
     console.log("the token is!! -->", this.token);
     // debugger;
     return superagent
-      .get(`${this.API_ROOT}${url}`)
+      .get(fullPath ? url : `${this.API_ROOT}${url}`)
       .use(this._tokenPlugin)
       .then(this._responseBody);
   }
@@ -112,6 +112,7 @@ export class UserEndpointAgent extends Agent {
   }
 }
 
+// Venue Endpoint Agent
 export class VenueEndpointAgent extends Agent {
   constructor(token = null, API_ROOT = "/api/host") {
     super(token, API_ROOT);
@@ -119,6 +120,18 @@ export class VenueEndpointAgent extends Agent {
 
   create(body) {
     return this._post("/", body).catch(error => {
+      throw error.response.body;
+    });
+  }
+
+  getStripeoAuthUrl() {
+    return this._post("/stripe/auth").catch(error => {
+      throw error.response.body;
+    });
+  }
+
+  completeStripeFlow(path) {
+    return this._get(path, true).catch(error => {
       throw error.response.body;
     });
   }
