@@ -52,7 +52,7 @@ EventSchema.methods.toJSONFor = function(user) {
   return {
     id,
     name,
-    host: host.toProfileJSON(),
+    host: host ? host.toProfileJSON() : host,
     currentListings: currentListings.map(function(listing, index) {
       // toJSONForHost will check if user is not Host and instead return unAuth version of listing object
       return listing.toJSONForHost(user);
@@ -83,7 +83,7 @@ EventSchema.methods.toNestedJSON = function() {
   return {
     id,
     name,
-    host: host.toProfileJSON(),
+    host: host ? host.toProfileJSON() : host,
     date,
     startTime,
     endTime,

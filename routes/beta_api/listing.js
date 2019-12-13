@@ -394,8 +394,11 @@ router.get("/", auth.optional, auth.setUserOrHost, async function(
   }
 
   if (req.query.zip || req.query.noZip) {
+    // noZip flag allows for no zip to be used
+    // while allowing this endpoint to return nearBy events and listings
     try {
-      const getNearByZips = function(zip = 11218) {
+      const getNearByZips = function(zip = 32801) {
+        // TODO: remove 32801 hardcode
         return zipcodes.radius(zip, 50); // 50 miles by default
       };
       let zipcode = req.query.zip || "";

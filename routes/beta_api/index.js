@@ -50,8 +50,9 @@ router.use(function(err, req, res, next) {
     });
   }
 
-  if (err.name === "BadRequestError") {
+  if (err.name === "BadRequestError" || err.name === "BadRequest") {
     return res.status(400).json({
+      name: err.name,
       success: false,
       error: err.message
     });

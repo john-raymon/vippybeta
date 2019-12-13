@@ -124,6 +124,12 @@ export class VenueEndpointAgent extends Agent {
     });
   }
 
+  login(body) {
+    return this._post(`/login`, body).catch(error => {
+      throw error.response.body;
+    });
+  }
+
   getStripeoAuthUrl() {
     return this._post("/stripe/auth").catch(error => {
       throw error.response.body;

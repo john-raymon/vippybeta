@@ -52,20 +52,6 @@ export default class VenueRegister extends Component {
     }
   }
 
-  // we do the same thing we do in the initial mount, except if the isAuth prop changes
-  // it will trigger the componentDidUpdate lifecycle method thus causing a redirect or not
-  componentDidUpdate() {
-    const { isAuth, location, history } = this.props;
-    const { state: locationState } = location;
-    if (isAuth) {
-      if (locationState) {
-        history.replace(locationState.from);
-      } else {
-        history.replace("/dashboard");
-      }
-    }
-  }
-
   // resets error state
   resetErrorsState() {
     this.setState({
@@ -108,7 +94,12 @@ export default class VenueRegister extends Component {
       legalVenueName: yup
         .string()
         .required(
-          "Please provide the legal name of the business, or entity. (Example LLC)"
+          "Please provide the legal name of the business, or entity. (Example LLC) If same as a presentable venue name, please provide that."
+        ),
+      venueName: yup
+        .string()
+        .required(
+          "Please provide the venue name you'd like to be presented that's different than the legal name of the business. If the same, please provide that."
         ),
       zipCode: yup
         .string()
@@ -238,6 +229,23 @@ export default class VenueRegister extends Component {
             >
               <div className="mb3 w-100">
                 <RegisterFormTextField
+                  placeholder="Venue Access Code"
+                  type="text"
+                  label="Access Code"
+                  name="accessCode"
+                  value={newVenue.accessCode}
+                />
+                <p className="michroma tw-text-xs tw-leading-tight tw-text-white tw-tracking-widest tw-capitalize tw-mt-2 tw-text-gray-500">
+                  venue verification code provided by a Vippy representative
+                </p>
+                {errors.accessCode && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {errors.accessCode}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
                   placeholder="What's legal business name of venue?"
                   type="text"
                   label="Legal Venue Name"
@@ -248,6 +256,34 @@ export default class VenueRegister extends Component {
                 {errors.legalVenueName && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
                     {errors.legalVenueName}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Presentable Venue Name"
+                  type="text"
+                  label="Venue Name to Present"
+                  name="venueName"
+                  value={newVenue.venueName}
+                />
+                {errors.venueName && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {errors.venueName}
+                  </p>
+                )}
+              </div>
+              <div className="mb3 w-100">
+                <RegisterFormTextField
+                  placeholder="Full name of owner/manager"
+                  type="text"
+                  label="Full name of owner/manager"
+                  name="fullName"
+                  value={newVenue.fullName}
+                />
+                {errors.fullName && (
+                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
+                    {errors.fullName}
                   </p>
                 )}
               </div>
@@ -266,7 +302,6 @@ export default class VenueRegister extends Component {
                   </p>
                 )}
               </div>
-
               <div className="mb3 w-100">
                 <RegisterFormTextField
                   placeholder="Enter your Phone Number"
@@ -320,37 +355,6 @@ export default class VenueRegister extends Component {
                 {errors.confirmPassword && (
                   <p className="michroma f7 red o-60 pt1 tracked lh-copy">
                     {errors.confirmPassword}
-                  </p>
-                )}
-              </div>
-              <div className="mb3 w-100">
-                <RegisterFormTextField
-                  placeholder="Ex. Nova Rae"
-                  type="text"
-                  label="Full Name"
-                  name="fullName"
-                  value={newVenue.fullName}
-                />
-                {errors.fullName && (
-                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                    {errors.fullName}
-                  </p>
-                )}
-              </div>
-              <div className="mb3 w-100">
-                <RegisterFormTextField
-                  placeholder="Venue Access Code"
-                  type="text"
-                  label="Access Code"
-                  name="accessCode"
-                  value={newVenue.accessCode}
-                />
-                <p className="michroma tw-text-xs tw-leading-tight tw-text-white tw-tracking-widest tw-capitalize tw-mt-2 tw-text-gray-500">
-                  venue verification code provided by a Vippy representative
-                </p>
-                {errors.accessCode && (
-                  <p className="michroma f7 red o-60 pt1 tracked lh-copy">
-                    {errors.accessCode}
                   </p>
                 )}
               </div>

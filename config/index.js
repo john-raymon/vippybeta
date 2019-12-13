@@ -7,7 +7,7 @@ module.exports = {
       process.env.NODE_ENV === "production"
         ? process.env.STRIPE_CLIENT_ID
         : process.env.STRIPE_TEST_CLIENT_ID,
-    authorizeUri: "https://connect.stripe.com/oauth/authorize",
+    authorizeUri: "https://connect.stripe.com/express/oauth/authorize",
     tokenUri: "https://connect.stripe.com/oauth/token"
   },
   public_domain: "localhost:4000"

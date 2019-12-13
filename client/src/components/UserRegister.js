@@ -240,7 +240,7 @@ class UserRegister extends Component {
             <div className="sticky top-from-nav mt4 mt0-l w-100 flex flex-column flex-row-m">
               <p className="michroma f4 tracked b lh-copy white-90 pa3 w-70 z-2">
                 Know What To Expect Before Going Out by Reserving on Vippy.
-                <span className="db lh-copy white  pt3">
+                <span className="db lh-copy white tw-text-xs tw-text-gray-500 pt3">
                   We exclusively partner with venues to bring forth underrated,
                   and reliable experiences.
                   <span className="db f7 white pt1 underline">

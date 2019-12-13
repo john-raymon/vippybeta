@@ -37,11 +37,8 @@ class Header extends Component {
   }
 
   render() {
-    const {
-      classes,
-      isAuth = false,
-      user = { firstname: "John" }
-    } = this.props;
+    const { classes, isAuth = false, user } = this.props;
+    const { firstname: userFirstName = "" } = user || {};
     return (
       <header className="Header pv1 ph3 ph2-l mw8 center sticky top-0 z-999 bg-vippy">
         <Drawer
@@ -56,8 +53,8 @@ class Header extends Component {
               </NavLink>
             </div>
             {isAuth && (
-              <p className="michroma tw-text-2xs tracked-1 ttu lh-extra white-40 pt1">
-                {`hello ${user.firstname}`}
+              <p className="michroma hello tw-text-2xs tracked-1 ttu lh-extra white-40 pt1">
+                {`hello ${userFirstName}`}
               </p>
             )}
             <div className="flex flex-grow-1 flex-column justify-between pb4">
@@ -141,14 +138,14 @@ class Header extends Component {
         </Drawer>
         <div className="flex flex-row items-center w-100 justify-between mt4 mb2">
           <div className="flex flex-column">
-            <div className="logoContainer ml1">
+            <div className="logoContainer">
               <NavLink to="/">
                 <VippyLogo />
               </NavLink>
             </div>
             {isAuth && (
               <p className="michroma tw-text-2xs tracked-1 ttu lh-extra white-40 pt1">
-                {`hello ${user.firstname}`}
+                {`hello ${userFirstName}`}
               </p>
             )}
           </div>

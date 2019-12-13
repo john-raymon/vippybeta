@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "heroku-postbuild": "cd client && npm install && npm run build-css && npm run build",
-    "client": "cd client && yarn start",
+    "client": "concurrently --kill-others-on-fail 'cd client && yarn watch'  'cd client && yarn start'",
     "client:build-css": "cd client && yarn build-css",
     "client:watch-css": "cd client && yarn watch-css",
     "dev-server": "nodemon ./bin/www",

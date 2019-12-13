@@ -47,7 +47,8 @@ hostPassport.use(
         .then(function(host) {
           if (!host || !host.validPassword(password)) {
             return done(null, false, {
-              errors: { "email or password": "is invalid" }
+              name: "BadRequest",
+              message: "The email or password is invalid"
             });
           }
           return done(null, host);

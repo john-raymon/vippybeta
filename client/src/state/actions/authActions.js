@@ -10,11 +10,11 @@ export const register = (type = "user") => {
     return (venue, venueAgent) => dispatch => {
       const body = {
         fullname: venue.fullName,
+        legalVenueName: venue.legalVenueName,
+        venueName: venue.venueName,
         zipcode: venue.zipCode,
         phonenumber: venue.phoneNumber,
         email: venue.email,
-        venueName: venue.venueName,
-        legalVenueName: venue.legalVenueName,
         password: venue.password,
         accessCode: venue.accessCode
       };
@@ -55,21 +55,36 @@ export const register = (type = "user") => {
   }
 };
 
-export const login = (userCredentials, userAgent) => dispatch => {
-  const body = {
-    emailOrPhoneNumber: {
-      email: userCredentials.email,
-      phoneNumber: userCredentials.phoneNumber
-    },
-    password: userCredentials.password
+export const login = loginType => {
+  if (loginType === "venue") {
+    return (venueCredentials, venueAgent) => dispatch => {
+      const body = {
+        email: venueCredentials.email,
+        password: venueCredentials.password
+      };
+      return dispatch({
+        type: "VENUE_LOGIN",
+        payload: venueAgent.login(body)
+      });
+    };
+  }
+
+  return (userCredentials, userAgent) => dispatch => {
+    const body = {
+      emailOrPhoneNumber: {
+        email: userCredentials.email,
+        phoneNumber: userCredentials.phoneNumber
+      },
+      password: userCredentials.password
+    };
+    return dispatch({
+      type: "USER_LOGIN",
+      payload: userAgent.login(body)
+    }).then(user => {
+      dispatch(initUser(userAgent));
+      return user;
+    });
   };
-  return dispatch({
-    type: "USER_LOGIN",
-    payload: userAgent.login(body)
-  }).then(user => {
-    dispatch(initUser(userAgent));
-    return user;
-  });
 };
 
 export const logout = () => dispatch => {

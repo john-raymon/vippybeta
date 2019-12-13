@@ -16,6 +16,7 @@ import Dashboard from "./Dashboard";
 import DetailedListing from "./DetailedListing";
 import Checkout from "./Checkout";
 import DetailedReservation from "./DetailedReservation";
+import SettingUpVenueScreen from "./SettingUpVenueScreen";
 
 // View Components
 import Header from "./Header";
@@ -24,7 +25,8 @@ import Header from "./Header";
 import {
   logout,
   initUser,
-  register as registerDispatch
+  register as registerDispatch,
+  login as loginDispatch
 } from "../state/actions/authActions";
 
 // Styles
@@ -114,7 +116,11 @@ class App extends Component {
     const {
       isAuth: isRegularAuth,
       isVenueAuth,
-      venueRegisterDispatch
+      venueRegisterDispatch,
+      user,
+      regularLogin,
+      venue,
+      venueLogin
     } = this.props;
     const isAuth = isRegularAuth || isVenueAuth; // only use isAuth for generic things that
     // can be a shared resource for all auths. (for example: ProtectedRoute^^ wrapper components
@@ -130,19 +136,22 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <section className="bg-vippy">
-          <Header isAuth={isAuth} logout={logout} />
-          <main className="mainContainer ph3">
+          <Header user={user || venue} isAuth={isAuth} logout={logout} />
+          <main className="tw-flex mainContainer ph3">
             <Switch>
               <Route path="/" exact component={Homepage} />
               <Route
-                path="/login"
-                exact
+                path="/login/:type?"
                 render={props => {
                   return (
                     <Login
                       {...props}
                       isAuth={isAuth}
+                      typeOfLogin={props.match.params.type}
                       userAgent={this.userAgent}
+                      venueAgent={this.venueAgent}
+                      venueLogin={venueLogin}
+                      regularLogin={regularLogin}
                     />
                   );
                 }}
@@ -181,18 +190,12 @@ class App extends Component {
                 path="/api/host/stripe/token"
                 exact
                 render={props => {
-                  alert("one moment while we set up your account");
-                  this.venueAgent
-                    .completeStripeFlow(
-                      `${props.location.pathname}${props.location.search}`
-                    )
-                    .then(resp => {
-                      alert("nice! youre all set");
-                    })
-                    .catch(error => {
-                      debugger;
-                    });
-                  return <p>hello</p>;
+                  return (
+                    <SettingUpVenueScreen
+                      {...props}
+                      venueAgent={this.venueAgent}
+                    />
+                  );
                 }}
               />
               <ProtectedRoute
@@ -200,7 +203,13 @@ class App extends Component {
                 path="/dashboard"
                 exact
                 render={props => {
-                  return <Dashboard {...props} userAgent={this.userAgent} />;
+                  return (
+                    <Dashboard
+                      {...props}
+                      isVenueAuth={isVenueAuth}
+                      userAgent={this.userAgent}
+                    />
+                  );
                 }}
               />
               <Route
@@ -283,7 +292,14 @@ export default connect(
   state => ({
     isAuth: state.auth.isAuth,
     isVenueAuth: state.auth.isVenueAuth,
-    venue: state.auth.venue
+    venue: state.auth.venue,
+    user: state.auth.user
   }),
-  { logout, initUser, venueRegisterDispatch: registerDispatch("venue") } // TODO: lift UserRegister's component's registerDispatch to App.js component
+  {
+    logout,
+    initUser,
+    regularLogin: loginDispatch(),
+    venueLogin: loginDispatch("venue"),
+    venueRegisterDispatch: registerDispatch("venue")
+  } // TODO: lift UserRegister's component's registerDispatch to App.js component
 )(withRouter(App));

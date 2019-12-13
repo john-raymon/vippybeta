@@ -115,7 +115,7 @@ class Dashboard extends Component {
     };
 
     return (
-      <div className="flex flex-column center mw8 pt1">
+      <div className="flex flex-column tw-w-full center mw8 pt1">
         <h1 className="michroma tracked lh-title white ttc f3 f2-ns pr4 mb3 mw6 mt1">
           Dashboard
         </h1>

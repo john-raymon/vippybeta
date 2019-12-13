@@ -21,7 +21,9 @@ export default createSelector(
       events.filter(event => {
         // console.log('testing end time isfuture',isFuture(new Date(event.endTime)))
         // console.log("distance in words", distanceInWordsToNow(new Date(event.endTime)))
-        return !event.cancelled && isFuture(new Date(event.endTime));
+        return (
+          !event.cancelled && isFuture(new Date(event.endTime)) && event.host
+        );
       });
     const eventsById = events
       ? events.reduce(function(obj, event) {
@@ -36,7 +38,8 @@ export default createSelector(
         listing =>
           !listing.cancelled &&
           isFuture(new Date(listing.bookingDeadline)) &&
-          isFuture(new Date(listing.event.endTime))
+          isFuture(new Date(listing.event.endTime)) &&
+          listing.host
       );
 
     return {

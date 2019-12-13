@@ -59,7 +59,7 @@ class Homepage extends Component {
       browseError
     } = this.props;
     return (
-      <div className="homepage flex flex-column mw8 center justify-center pb4">
+      <div className="homepage flex tw-self-start flex-column mw8 center justify-center pb4">
         <div className="homepage__hero relative flex flex-column">
           <div className="absolute absolute--fill flex flex-column flex-row-l justify-center items-center-l justify-between-l pb5-l">
             <p className="michroma f6 f4-ns tracked b lh-title white-90 pl3 w-80 w-60-ns">
