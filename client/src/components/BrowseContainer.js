@@ -128,7 +128,7 @@ class BrowseContainer extends Component {
                       value={tab}
                       key={key}
                       className="white-important ttu tl michroma-important f8-important lh-small tracked"
-                      label={tab}
+                      label={tab === "vip/packages" ? "vip packages" : tab}
                       textColor="primary"
                     />
                   );

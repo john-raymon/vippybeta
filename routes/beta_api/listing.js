@@ -245,7 +245,7 @@ router.post(
           return next({
             name: "UnauthorizedError",
             message:
-              "You must the venue host of this event or promoter of the venue host of this event with proper permissions to create listings for this event"
+              "You must be the venue host of this event or promoter of the venue host of this event with proper permissions to create listings for this event"
           });
         }
 

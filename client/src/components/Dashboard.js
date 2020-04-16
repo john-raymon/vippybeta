@@ -41,7 +41,7 @@ function getVenueDashboardCard(type) {
       return (
         <div className="tw-flex tw-flex-col tw-ftw-bg-black tw-w-full tw-rounded-md tw-border tw-border-gray-800 tw-rounded-lg tw-my-6 tw-p-4">
           <div className="tw-flex">
-            <p className="small-text tw-text-white tw-uppercase">
+            <p className="small-text tw-text-yellow-500 tw-uppercase">
               {eventStartDate}
             </p>
           </div>
@@ -73,7 +73,7 @@ function getVenueDashboardCard(type) {
           </div>
           <div className="tw-flex tw-w-full tw-justify-between tw-pt-2 md:tw-pt-0">
             <div className="tw-flex tw-items-end">
-              <p className="small-text tw-text-yellow-500 tw-opacity-25 tw-uppercase">
+              <p className="small-text tw-text-yellow-500 tw-uppercase">
                 {type}
               </p>
             </div>
@@ -124,7 +124,7 @@ function getVenueDashboardCard(type) {
       return (
         <div className="tw-flex tw-flex-col tw-ftw-bg-black tw-w-full tw-rounded-md tw-border tw-border-gray-800 tw-rounded-lg tw-my-6 tw-p-4">
           <div className="tw-flex tw-justify-between tw-pb-4">
-            <p className="small-text tw-text-white tw-uppercase">
+            <p className="small-text tw-text-yellow-500 tw-uppercase">
               {eventStartDate}
             </p>
 
@@ -183,7 +183,7 @@ function getVenueDashboardCard(type) {
 
           <div className="tw-flex tw-w-full tw-justify-between tw-pt-2 md:tw-pt-0">
             <div className="tw-flex tw-items-end">
-              <p className="small-text tw-text-yellow-500 tw-opacity-25 tw-uppercase">
+              <p className="small-text tw-text-yellow-500 tw-uppercase">
                 {type}
               </p>
             </div>
@@ -219,7 +219,7 @@ function getVenueDashboardCard(type) {
       return (
         <div className="tw-flex tw-flex-col tw-ftw-bg-black tw-w-full tw-rounded-md tw-border tw-border-gray-800 tw-rounded-lg tw-my-6 tw-p-4">
           <div className="tw-flex">
-            <p className="small-text tw-text-white tw-uppercase">
+            <p className="small-text tw-text-yellow-500 tw-uppercase">
               {eventStartDate}
             </p>
           </div>
@@ -257,7 +257,7 @@ function getVenueDashboardCard(type) {
           </div>
           <div className="tw-flex tw-w-full tw-justify-between tw-pt-2 md:tw-pt-0">
             <div className="tw-flex tw-items-end">
-              <p className="small-text tw-text-yellow-500 tw-opacity-25 tw-uppercase">
+              <p className="small-text tw-text-yellow-500 tw-uppercase">
                 {type}
               </p>
             </div>

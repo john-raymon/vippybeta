@@ -1,5 +1,11 @@
 @tailwind base;
-
+html,
+body {
+  @apply tw-font-mich;
+}
+input {
+  height: auto !important;
+}
 @tailwind components;
 
 @tailwind utilities;
